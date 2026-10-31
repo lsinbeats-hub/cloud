@@ -10,13 +10,14 @@ import { FAQSection } from "./components/FAQSection.tsx";
 import { CTASection } from "./components/CTASection.tsx";
 import { Footer } from "./components/Footer.tsx";
 import { ScrollProgressBar } from "./components/ScrollProgressBar.tsx";
-import { ImageProvider } from "./context/ImageContext.tsx";
+import { ImageProvider, useSiteImages } from "./context/ImageContext.tsx";
 import { ImageManagerModal } from "./components/ImageManagerModal.tsx";
 import { getWhatsAppUrl } from "./config/agency.ts";
-import { MessageSquare, ArrowUp } from "lucide-react";
+import { MessageSquare, ArrowUp, Camera } from "lucide-react";
 
 function MainContent() {
   const [showScrollTop, setShowScrollTop] = useState(false);
+  const { setIsManagerOpen, setTargetKeyForEdit } = useSiteImages();
 
   useEffect(() => {
     const checkScroll = () => {
@@ -70,6 +71,24 @@ function MainContent() {
 
       {/* Modal de Personalização e Troca de Todas as Imagens */}
       <ImageManagerModal />
+
+      {/* Floating Button para Trocar Imagem (Canto Inferior Esquerdo) */}
+      <div className="fixed bottom-6 left-6 z-40 flex items-center gap-2 pointer-events-auto">
+        <button
+          type="button"
+          onClick={() => {
+            setTargetKeyForEdit("hero");
+            setIsManagerOpen(true);
+          }}
+          className="group flex items-center gap-2.5 bg-neutral-950/90 hover:bg-neutral-900 active:bg-neutral-800 text-white px-4 py-3 rounded-full shadow-2xl shadow-blue-500/10 border border-slate-700/80 backdrop-blur-md transition-all duration-200 hover:scale-105 active:scale-95 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-blue-400"
+          aria-label="Trocar imagem do site"
+        >
+          <Camera className="w-4 h-4 text-blue-400 group-hover:text-blue-300 transition-colors" />
+          <span className="text-xs font-bold uppercase tracking-wider text-slate-200 group-hover:text-white">
+            Trocar Imagem
+          </span>
+        </button>
+      </div>
 
       {/* Floating WhatsApp Quick Action Button (Bottom-Right) */}
 

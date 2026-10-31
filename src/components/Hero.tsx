@@ -1,9 +1,25 @@
-import React from "react";
+import React, { useRef } from "react";
 import { getWhatsAppUrl } from "../config/agency.ts";
-import { ArrowRight, MessageSquare } from "lucide-react";
+import { ArrowRight, MessageSquare, Camera, Upload } from "lucide-react";
 import { ScrollReveal } from "./ScrollReveal.tsx";
+import { useSiteImages } from "../context/ImageContext.tsx";
 
 export const Hero: React.FC = () => {
+  const { images, updateImage, setIsManagerOpen, setTargetKeyForEdit } = useSiteImages();
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        if (typeof reader.result === "string") {
+          updateImage("hero", reader.result);
+        }
+      };
+      reader.readAsDataURL(file);
+    }
+  };
   return (
     <section id="hero" className="relative pt-24 md:pt-32 bg-black text-white overflow-hidden">
       
@@ -92,11 +108,49 @@ export const Hero: React.FC = () => {
                 {/* Glow expandido azul de fundo */}
                 <div className="absolute inset-0 bg-blue-500/30 rounded-3xl blur-3xl -z-10 transform scale-110 pointer-events-none" />
                 <img
-                  src="/assets/aistudio/Solu__es_digitais_em_neon_azul__2__8924eb69.png"
+                  src={images.hero || "/assets/aistudio/Solu__es_digitais_em_neon_azul__2__8924eb69.png"}
                   alt="Soluções Digitais Cloud Creative - Sites, Chatbots, Design e Google Meu Negócio"
                   className="w-full sm:w-[110%] lg:w-[125%] xl:w-[135%] max-w-none h-auto object-contain drop-shadow-[0_0_55px_rgba(59,130,246,0.45)] transition-transform duration-500 group-hover:scale-[1.03]"
                   loading="eager"
                 />
+
+                {/* Botão de Trocar Imagem no Destaque */}
+                <div className="absolute top-2 right-2 sm:top-4 sm:right-4 z-20 flex items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setTargetKeyForEdit("hero");
+                      setIsManagerOpen(true);
+                    }}
+                    className="flex items-center gap-2 px-3 py-2 bg-slate-950/90 hover:bg-blue-600 active:bg-blue-700 text-white text-xs font-bold rounded-xl backdrop-blur-md border border-white/20 shadow-2xl transition-all duration-200 hover:scale-105 active:scale-95"
+                    title="Trocar imagem do destaque"
+                  >
+                    <Camera className="w-4 h-4 text-blue-400 group-hover:text-white" />
+                    <span>Trocar Imagem</span>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      fileInputRef.current?.click();
+                    }}
+                    className="flex items-center justify-center p-2 bg-slate-950/90 hover:bg-blue-600 active:bg-blue-700 text-white rounded-xl backdrop-blur-md border border-white/20 shadow-2xl transition-all duration-200 hover:scale-105 active:scale-95"
+                    title="Upload direto do computador"
+                    aria-label="Upload direto do computador"
+                  >
+                    <Upload className="w-4 h-4 text-cyan-400" />
+                  </button>
+
+                  <input
+                    ref={fileInputRef}
+                    type="file"
+                    accept="image/*"
+                    className="hidden"
+                    onChange={handleFileChange}
+                  />
+                </div>
               </div>
             </ScrollReveal>
           </div>
