@@ -22,17 +22,17 @@ export const DEFAULT_IMAGES: SiteImages = {
   logo: "/assets/aistudio/snapedit_1792858477180_02765559.png",
   hero: "/assets/aistudio/Solu__es_digitais_em_neon_azul__2__8924eb69.png",
   about: "/assets/aistudio/85aa887e-2bc9-425c-abab-3387040edc7e_f6cb26b6.png",
-  portfolio_beauty: "/assets/instagram/media_1793320106079_faa86189.jpg",
-  portfolio_medical: "/assets/aistudio/image_e2374754.png",
-  portfolio_bakery: "/assets/aistudio/cloud_mockup_transparent.png",
-  portfolio_gym: "/assets/aistudio/85aa887e-2bc9-425c-abab-3387040edc7e_f6cb26b6.png",
-  instagram_1: "/assets/aistudio/Cloud_logo_80bda40e.jpeg",
-  instagram_2: "/assets/aistudio/85aa887e-2bc9-425c-abab-3387040edc7e_f6cb26b6.png",
-  instagram_3: "/assets/aistudio/snapedit_1792858477180_02765559.png",
+  portfolio_beauty: "/assets/images/portfolio_beauty_salon_1792967547885.jpg",
+  portfolio_medical: "/assets/images/portfolio_medical_clinic_1792967548050.jpg",
+  portfolio_bakery: "/assets/images/portfolio_artisanal_bakery_1792967548665.jpg",
+  portfolio_gym: "/assets/images/portfolio_fitness_gym_1792967549615.jpg",
+  instagram_1: "/assets/images/hero_3d_blue_cloud_sculpture_1792969546942.jpg",
+  instagram_2: "/assets/images/portfolio_beauty_salon_1792967547885.jpg",
+  instagram_3: "/assets/images/agency_team_collaboration_1792969547631.jpg",
   instagram_4: "/assets/aistudio/cloud_mockup_transparent.png",
-  instagram_5: "/assets/aistudio/image_e2374754.png",
+  instagram_5: "/assets/images/portfolio_artisanal_bakery_1792967548665.jpg",
   instagram_6: "/assets/instagram/media_1793320106079_faa86189.jpg",
-  instagram_7: "/assets/aistudio/image_e2374754.png",
+  instagram_7: "/assets/images/portfolio_fitness_gym_1792967549615.jpg",
   instagram_8: "/assets/aistudio/Solu__es_digitais_em_neon_azul__2__8924eb69.png",
 };
 
@@ -47,7 +47,7 @@ export const PRESET_THEMES: {
     id: "original",
     name: "Padrão Cloud Creative",
     description: "Imagens oficiais com esculturas 3D em azul elétrico e cases reais.",
-    coverImage: "/src/assets/images/hero_3d_blue_cloud_sculpture_1792969546942.jpg",
+    coverImage: "/assets/images/hero_3d_blue_cloud_sculpture_1792969546942.jpg",
     images: { ...DEFAULT_IMAGES },
   },
   {
@@ -129,7 +129,7 @@ interface ImageContextType {
   setTargetKeyForEdit: (key: keyof SiteImages | null) => void;
 }
 
-const STORAGE_KEY = "cloud_creative_custom_images";
+const STORAGE_KEY = "cloud_creative_custom_images_v3";
 
 const ImageContext = createContext<ImageContextType | undefined>(undefined);
 
@@ -139,19 +139,7 @@ export const ImageProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       const saved = localStorage.getItem(STORAGE_KEY);
       if (saved) {
         const parsed = JSON.parse(saved);
-        const merged: Record<string, string> = { ...DEFAULT_IMAGES };
-        for (const [key, value] of Object.entries(parsed)) {
-          if (
-            value &&
-            typeof value === "string" &&
-            !value.includes("agency_team_collaboration") &&
-            !value.includes("portfolio_fitness_gym") &&
-            !value.includes("hero_3d_blue_cloud_sculpture")
-          ) {
-            merged[key] = value;
-          }
-        }
-        return merged as SiteImages;
+        return { ...DEFAULT_IMAGES, ...parsed };
       }
     } catch {
       // fallback to default

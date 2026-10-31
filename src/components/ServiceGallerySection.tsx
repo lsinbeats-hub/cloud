@@ -84,7 +84,7 @@ export const ServiceGallerySection: React.FC = () => {
 
                 <div className="relative aspect-16/10 overflow-hidden bg-neutral-900">
                   <img
-                    src="/src/assets/images/portfolio_beauty_salon_1792967547885.jpg"
+                    src="/assets/images/portfolio_beauty_salon_1792967547885.jpg"
                     alt="Exemplo Landing Page"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
@@ -147,7 +147,7 @@ export const ServiceGallerySection: React.FC = () => {
 
                 <div className="relative aspect-16/10 overflow-hidden bg-neutral-900">
                   <img
-                    src="/src/assets/images/portfolio_medical_clinic_1792967548050.jpg"
+                    src="/assets/images/portfolio_medical_clinic_1792967548050.jpg"
                     alt="Exemplo Site de Apresentação"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
@@ -206,7 +206,7 @@ export const ServiceGallerySection: React.FC = () => {
 
                 <div className="relative aspect-16/10 overflow-hidden bg-neutral-900">
                   <img
-                    src="/src/assets/images/portfolio_artisanal_bakery_1792967548665.jpg"
+                    src="/assets/images/portfolio_artisanal_bakery_1792967548665.jpg"
                     alt="Exemplo Site Completo"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
@@ -432,7 +432,7 @@ export const ServiceGallerySection: React.FC = () => {
 
                 <div className="md:col-span-4 rounded-xl overflow-hidden aspect-4/3 bg-black border border-white/10">
                   <img
-                    src="/src/assets/images/portfolio_fitness_gym_1792967549615.jpg"
+                    src="/assets/images/portfolio_fitness_gym_1792967549615.jpg"
                     alt="Fotos do espaço no Google"
                     className="w-full h-full object-cover"
                   />
